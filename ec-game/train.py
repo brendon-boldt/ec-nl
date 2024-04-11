@@ -19,6 +19,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Translation from scratch')
 
     # main ones to change
+    parser.add_argument("--name", type=str, required=True, help="Name of the run.")
     parser.add_argument("--dataset", type=str, default="cc", help="Which Image Dataset To Use EC Pretraining")
     parser.add_argument("--vocab_size", type=int, default=4035, help="EC vocab size")
     parser.add_argument("--seq_len", type=int, default=15, help="Max Len")
@@ -78,14 +79,13 @@ if __name__ == '__main__':
 
     print("Dataset Loaded")
 
-    mill = int(round(time.time() * 100000)) % 100000
     name = f'{args.dataset}_vocab_{args.vocab_size}_seq_{args.seq_len}_reset_{args.reset_lsn}_nlayers_{args.num_layers}'
-    run = str(mill)
+    run = args.name
     if args.wandb:
         import wandb
         wandb.init(project='EC-games', name=run, group=name, config=args)
 
-    path_dir = f"./ckpt/{name}/run{run}/"
+    path_dir = f"./ckpt/{name}/run-{run}/"
     os.makedirs(path_dir, exist_ok=True)
 
     sys.stdout = Logger(path_dir, no_write=args.no_write, no_terminal=args.no_terminal)
