@@ -153,7 +153,7 @@ if __name__ == '__main__':
                               "Saved to Path :", path_dir)
 
                         # extract emergent corpus
-                        for dataset in ["coco2014", "cc"]:
+                        for dataset in ["coco_2014", "cc"]:
                             if dataset in args.extract:
                                 load_data = torch.load(dataset2pt[dataset])
                                 bs = args.batch_size
