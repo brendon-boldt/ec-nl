@@ -121,7 +121,7 @@ if __name__ == '__main__':
         optimizer.step()
 
         # log training info
-        if epoch % args.print_every == 0:
+        if (epoch + 1) % args.print_every == 0:
             avg_loss_dict_ = get_avg_from_loss_dict_(train_loss_dict_)
             print(print_loss_(epoch, args.alpha, avg_loss_dict_, "train"))
             train_loss_dict_ = get_log_loss_dict_()
@@ -129,7 +129,7 @@ if __name__ == '__main__':
             train_dict.update({'epoch': epoch})
 
         # eval
-        if epoch % args.valid_every == 0:
+        if (epoch + 1) % args.valid_every == 0:
             model.eval()
             with torch.no_grad():
                 valid_loss_dict_ = get_log_loss_dict_()
@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
                 if float(s_new.split()[-6][:-2]) > 0:  # True
                     # save model
-                    if epoch % args.save_every == 0:
+                    if (epoch + 1) % args.save_every == 0:
                         path = path_dir + "model_{}_{}_{}.pt".format(float(s_new.split()[-6][:-2]), epoch,
                                                                      args.vocab_size)
                         with open(path, "wb") as path_model:
